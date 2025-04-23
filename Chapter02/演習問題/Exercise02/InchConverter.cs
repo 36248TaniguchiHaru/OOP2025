@@ -5,19 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Exercise02 {
-    public static class InchConverter {
+    public static class YardConverter {
 
         //定数
-        private const double ratio = 0.0254;
+        private const double ratio = 1.09361;
 
-        // インチからメートルを求める
-        public static double ToMeter(double inch) {
-            return inch * ratio;
+        // ヤードからメートルを求める
+        public static double ToMeter(double yard) {
+            return yard * ratio;
         }
 
-        // メートルからインチを求める
-        public static double ToInch(double meter) {
+        // メートルからヤードを求める
+        public static double ToYard(double meter) {
             return meter / ratio;
         }
+
+    
+        }
     }
-}
+
