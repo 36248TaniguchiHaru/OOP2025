@@ -9,8 +9,8 @@ namespace SalesCalculator{
     public class SalesCounter {
         private readonly List<Sale> _sales;
 
-        public SalesCounter(List<Sale> sales) {
-            _sales = sales;
+        public SalesCounter(string filePath) {
+            _sales =  ReadSales(filePath);
         }
 
         public Dictionary<string,int> GetPerStoreSales() {
