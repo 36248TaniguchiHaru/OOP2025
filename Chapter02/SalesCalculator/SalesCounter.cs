@@ -14,8 +14,8 @@ namespace SalesCalculator{
         }
 
         public IDictionary<string,int> GetPerStoreSales() {
-            Dictionary<string, int> dict = new Dictionary<string, int>();
-            foreach(Sale sale in _sales) {
+            var dict = new Dictionary<string, int>();
+            foreach(var sale in _sales) {
                 if (dict.ContainsKey(sale.ShopName))
                     dict[sale.ShopName] += sale.Amount;
                 else
@@ -24,11 +24,11 @@ namespace SalesCalculator{
             return dict;
         }
         public static IEnumerable<Sale> ReadSales(string filePath) {
-            List<Sale> sales = new List<Sale>();
-            string[] lines = File.ReadAllLines(filePath);
-            foreach (string line in lines) {
-                string[] items = line.Split(',');
-                Sale sale = new Sale() {
+            var sales = new List<Sale>();
+            var lines = File.ReadAllLines(filePath);
+            foreach (var line in lines) {
+                var items = line.Split(',');
+                var sale = new Sale() {
                     ShopName = items[0],
                     ProductCategory = items[1],
                     Amount = int.Parse(items[2]),
