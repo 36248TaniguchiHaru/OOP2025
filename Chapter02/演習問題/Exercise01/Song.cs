@@ -9,9 +9,10 @@ namespace Exercise01 {
     //2.1.1
 
     public class Song {
-        string Title;
-        string ArtistName;
-        int Length;
+        public string Title { get; private set; }         
+        public string ArtistName { get; private set; }
+        public int Length { get; private set; }
+
 
         //2.1.2
 
