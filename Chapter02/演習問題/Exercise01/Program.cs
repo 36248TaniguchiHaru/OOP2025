@@ -1,31 +1,50 @@
 ﻿using Microsoft.VisualBasic;
+using System.Reflection;
 using System.Threading.Tasks.Sources;
 
 namespace Exercise01 {
     public class Program {
         static void Main(string[] args) {
-            //2.1.3
-            var songs = new Song[] {
-  　　　　  new Song("Let it be", "The Beatles", 243),
-  　　　　  new Song("Bridge Over Troubled Water", "Simon & Garfunkel", 293),
-   　　　　 new Song("Close To You", "Carpenters", 276),
-    　　　　new Song("Honesty", "Billy Joel", 231),
-   　　　　 new Song("I Will Always Love You", "Whitney Houston", 273),
-　　　　　　};
-            printSongs(songs);
-       
+            var songs = new List<Song>();
+            Console.WriteLine("＊＊＊＊＊曲の登録＊＊＊＊＊");
+            // 無限ループ
+            while (true) {
+                Console.Write("曲名：");
+                string title = Console.ReadLine();
+                //endが入力されたら登録終了
+                if (title.Equals("end")) break;
+                Console.Write("アーティスト名：");
+                string artistname = Console.ReadLine();
+                Console.Write("演奏時間：");
+                int length = int.Parse(Console.ReadLine());
+                //songインスタンスを作成
+                // Song song = new Song(title, artistname, length);
+                Song song = new Song() {
+                    Title = title,
+                    ArtistName = artistname,
+                    Length = length
+                };
+                songs.Add(song);
+                Console.WriteLine();
+
+            }
+
+            printSongs(songs.ToArray());
+
         }
+
 
         //2.1.4
         private static void printSongs(Song[] songs) {
-      /*      foreach (var song in songs) {
-                var minutes = song.Length / 60;
-                var seconds = song.Length % 60;
-                Console.WriteLine($"{song.Title}, {song.ArtistName}, { minutes}:{ seconds:00}");
-            }*/
-          　　
+            /*      foreach (var song in songs) {
+                      var minutes = song.Length / 60;
+                      var seconds = song.Length % 60;
+                      Console.WriteLine($"{song.Title}, {song.ArtistName}, { minutes}:{ seconds:00}");
+                  }*/
+
             //TimeSpan構造体を使った場合
-            foreach(var song in songs){
+
+            foreach (var song in songs) {
                 var timespan = TimeSpan.FromSeconds(song.Length);
                 Console.WriteLine($"{song.Title}, {song.ArtistName}, {timespan.Minutes}:{timespan.Seconds:00}");
             }
@@ -36,7 +55,7 @@ namespace Exercise01 {
             }
 
             Console.WriteLine();
-           
+
 
         }
 
