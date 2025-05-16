@@ -31,19 +31,22 @@ namespace Exercise02 {
         
 
         private static void Exercise2_1(List<string> cities) {
-            Console.WriteLine("都市名を入力");
-            string city = Console.ReadLine();
-            var index= cities.FindIndex(s => s == city);
-            Console.WriteLine(index);
+            while (true) {
+                Console.WriteLine("都市名を入力。空白にしたら終了");
+                string city = Console.ReadLine();
+                if (String.IsNullOrEmpty(city)) {
+                    break;
+                }
+                var index = cities.FindIndex(s => s == city);
+                Console.WriteLine(index);
+            }
         }
+
 
         private static void Exercise2_2(List<string> cities) {
-            Console.WriteLine("都市名を入力");
-            string city = Console.ReadLine();
-            var index = cities.FindIndex(s => s == city);
-            Console.WriteLine(index);
+           
         }
-
+        
         private static void Exercise2_3(List<string> names) {
 
         }
