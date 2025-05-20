@@ -31,12 +31,11 @@ namespace Exercise02 {
         
 
         private static void Exercise2_1(List<string> cities) {
-            while (true) {
                 Console.WriteLine("都市名を入力。空白にしたら終了");
-                string city = Console.ReadLine();
-                if (String.IsNullOrEmpty(city)) {
+            while (true) {
+                var city = Console.ReadLine();
+                if (String.IsNullOrEmpty(city)) 
                     break;
-                }
                 var index = cities.FindIndex(s => s == city);
                 Console.WriteLine(index);
             }
@@ -44,15 +43,24 @@ namespace Exercise02 {
 
 
         private static void Exercise2_2(List<string> cities) {
-           
+            var count = cities.Count(s => s.Contains ('o'));
+                Console.WriteLine(count);
         }
         
-        private static void Exercise2_3(List<string> names) {
-
+        private static void Exercise2_3(List<string> cities) {
+            var where = cities.Where(s => s.Contains('o')).ToArray();
+            foreach (var name in where) {
+                Console.WriteLine(name);
+            }
+           
         }
 
         private static void Exercise2_4(List<string> names) {
-
+            var selected = names.Where(s => s.StartsWith('B'))
+                                .Select(s=>s.Length);
+            foreach(var name in selected) {
+                Console.WriteLine(name);
+            }
         }
     }
 }
