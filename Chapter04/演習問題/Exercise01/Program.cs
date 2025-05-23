@@ -3,7 +3,7 @@ namespace Exercise01 {
     internal class Program {
         static void Main(string[] args) {
             List<string> langs = [
-                "C#", "Java", "Ruby", "PHP", "Python","TypeScript",
+                "C#", "Java", "Ruby", "PHP", "Python", "TypeScript",
                 "JavaScript", "Swift", "Go",
             ];
 
@@ -44,10 +44,9 @@ namespace Exercise01 {
         }
 
         private static void Exercise3(List<string> langs) {
-            var lang = langs.Find(s => s.Length == 10);
-            Console.WriteLine(lang);
-            if (String.IsNullOrEmpty(lang))
-                Console.WriteLine("null");
+            var lang = langs.Find(s => s.Length == 10) ?? "unknown";
+            Console.WriteLine(lang == "unknown" ? "null":"");
         }
+
     }
 }
