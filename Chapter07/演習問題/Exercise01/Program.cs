@@ -41,10 +41,14 @@ namespace Exercise01 {
         }        
 
         private static void Exercise4(int[] numbers) {
+            var num = numbers.Order().Take(3);
+            foreach (var n in num) {
+                Console.WriteLine(n);
+            }
         }
 
         private static void Exercise5(int[] numbers) {
-            
+          
         }
     }
 }
