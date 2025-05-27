@@ -29,6 +29,7 @@ namespace Exercise01 {
 
         private static void Exercise2(int[] numbers) {
             Console.WriteLine(string.Join("",numbers.Reverse().Take(2)));
+            //------------------------------------------------------------
             foreach(var n in numbers.Skip(numbers.Length-2)) {
                 Console.WriteLine(n);
             }
@@ -38,11 +39,15 @@ namespace Exercise01 {
             for (int i = 0; i < numbers.Length; i++) {
                 Console.WriteLine("{0,3}",numbers[i].ToString("D3"));
             }
+            //------------------------------------------------------------
+            var strs = numbers.Select(n => n.ToString("000"));
+            foreach(var n in strs) {
+                Console.WriteLine(n);
+            }
         }        
 
         private static void Exercise4(int[] numbers) {
-            var num = numbers.Order().Take(3);
-            foreach (var n in num) {
+            foreach (var n in numbers.Order().Take(3)) {
                 Console.WriteLine(n);
             }
         }
