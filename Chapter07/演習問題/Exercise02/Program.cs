@@ -40,7 +40,7 @@ namespace Exercise02 {
                 Console.WriteLine(b.Price + ":" + b.Pages);
 //--------------------------------------------------------------------------------------
             var bo = books.FirstOrDefault(b => b.Title == "ワンダフル・C#ライフ");
-            if(book is not null) 
+            if(bo is not null) 
                     Console.WriteLine("{0} {1}", bo.Price, bo.Pages);
                 
             }
@@ -52,8 +52,9 @@ namespace Exercise02 {
         }
 
         private static void Exercise3(List<Book> books) {
-            var book = books.Where(s => s.Title.Contains("C#"));
-            Console.WriteLine(book.Average(s => s.Pages));
+            var book = books.Where(s => s.Title.Contains("C#"))
+                            .Average(b => b.Pages);
+            Console.WriteLine(book);
         }
 
         private static void Exercise4(List<Book> books) {
@@ -78,6 +79,11 @@ namespace Exercise02 {
             var book = books.Where(s => s.Title.Contains("C#") && s.Pages <= 500);
             foreach (var item in book) {
                 Console.WriteLine(item.Title);
+            }
+            //--------------------------------------------------------------------
+            var selected = books.Where(s => s.Title.Contains("C#") && s.Pages <= 500).Select(b=>b.Title);
+            foreach (var title in selected) {
+                Console.WriteLine(title);
             }
         }
     }
