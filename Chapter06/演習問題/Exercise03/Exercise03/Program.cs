@@ -61,7 +61,7 @@ namespace Exercise03 {
             //----------------------------------------------------------------
             var word = text.Split(' ').Where(s => s.Length <= 4);
             foreach (var worrd in word) {
-                Console.WriteLine(word);
+                Console.WriteLine(worrd);
             }
             }
         }
