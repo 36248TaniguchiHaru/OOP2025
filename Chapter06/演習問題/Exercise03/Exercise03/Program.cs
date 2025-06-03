@@ -33,7 +33,7 @@ namespace Exercise03 {
             }
 
             private static void Exercise3(string text) {
-                var word = text.Split(' ');
+            var word = text.Split(' ');
             var words = new StringBuilder();
             foreach (var item in word) {
                 words = words.Append(item+' ');
