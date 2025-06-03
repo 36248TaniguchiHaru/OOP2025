@@ -17,7 +17,7 @@ namespace Exercise04 {
                     Console.WriteLine("作家:" + newline[count + 1]);
                 }else if (newline[count] == "BestWork" && newline[count + 1] is not null) {
                     Console.WriteLine("代表作:" + newline[count + 1]);
-                } else(newline[count] == "Born" && newline[count + 1] is not null) {
+                } else if(newline[count] == "Born" && newline[count + 1] is not null) {
                     Console.WriteLine("誕生年:" + newline[count + 1]);
                 }
             }
