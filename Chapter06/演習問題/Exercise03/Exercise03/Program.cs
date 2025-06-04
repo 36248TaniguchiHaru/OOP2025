@@ -29,7 +29,7 @@ namespace Exercise03 {
             }
 
         private static void Exercise6(string text) {
-            for (var num = 0; num < 25; num++) { 
+            for (var num = 0; (char)('a'+num)<='z'; num++) { 
             var number=(char)('a' + num);
                 Console.WriteLine(number+":"+text.Count(c => char.ToLower(c) == number));
           }
