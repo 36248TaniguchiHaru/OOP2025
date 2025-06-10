@@ -59,6 +59,7 @@
             this.btStop.TabIndex = 2;
             this.btStop.Text = "ストップ";
             this.btStop.UseVisualStyleBackColor = true;
+            this.btStop.Click += new System.EventHandler(this.btStop_Click);
             // 
             // btReset
             // 

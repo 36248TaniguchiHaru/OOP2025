@@ -37,7 +37,11 @@ namespace StopWatch
 
         private void btReset_Click(object sender, EventArgs e) {
             sw.Reset();
-            tmDispTimer.Reset();
+            tmDispTimer.Stop();
+        }
+
+        private void btStop_Click(object sender, EventArgs e) {
+
         }
     }
 }

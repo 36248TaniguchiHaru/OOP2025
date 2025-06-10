@@ -4,33 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Exercise01{
+namespace Exercise02{
     public class YearMonth {
-        //5.1.1
         public int Year { get; init; }
         public int Month { get; init; }
         public YearMonth(int year, int month) {
             this.Year = year;
             this.Month = month;
         }
-        //5.1.2
-        public bool Is21Century =>2001<=Year&& Year <= 2100;
-        //5.1.3
+        public bool Is21Century => 2001 <= Year && Year <= 2100;
         public YearMonth AddOneMonth() {
             int newYear = Year;
-            int newMonth = Month ;
+            int newMonth = Month;
             if (newMonth == 12) {
                 newYear += 1;
                 newMonth = 1;
             } else {
                 newMonth += 1;
             }
-                return new YearMonth(newYear, newMonth);
+            return new YearMonth(newYear, newMonth);
         }
-        //5.1.4
         public override string ToString() => $"{Year}年{Month}月";
-     
-
+        
+        
+       
 
     }
 }
