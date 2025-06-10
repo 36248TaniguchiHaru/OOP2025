@@ -51,7 +51,6 @@ namespace Exercise02 {
                 Console.WriteLine(ite);
             }
         }
-
     }
 }
 
