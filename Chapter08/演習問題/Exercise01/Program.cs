@@ -12,30 +12,48 @@ namespace Exercise01 {
         }
 
         private static void Exercise1(string text) {
-            var countDict = new Dictionary<char, int>(); 
+            var countDict = new Dictionary<char, int>();
             foreach (var ch in text.ToUpper()) {
                 if ('A' <= ch && ch <= 'Z') {
-                if (countDict.ContainsKey(ch)) {
-                    countDict[ch]++;     
-                } else {
-                    countDict[ch]= 1;
+                    if (countDict.ContainsKey(ch)) {
+                        countDict[ch]++;
+                    } else {
+                        countDict[ch] = 1;
+                    }
                 }
             }
-                foreach (var (key,value) in countDict.OrderBy(s=>s.Key)) {
-                    Console.WriteLine($"{ key}:{value}");
-                }
-            
-        }
-            
-            
-            /*for(var ch='A'; 'A' <= ch && ch <= 'Z'; ch++) {
-                var count = text.ToUpper().Count(s=>s==ch);
-                Console.WriteLine("'" + ch + "':" + count);
-            }*/
+            foreach (var (key, value) in countDict.OrderBy(s => s.Key)) {
+                Console.WriteLine($"{key}:{value}");
+            }
+
         }
 
+
+        /*for(var ch='A'; 'A' <= ch && ch <= 'Z'; ch++) {
+            var count = text.ToUpper().Count(s=>s==ch);
+            Console.WriteLine("'" + ch + "':" + count);
+        }*/
+
+
+
         private static void Exercise2(string text) {
-            
+            var countDict = new SortedDictionary<char, int>();
+            foreach (var ch in text.ToUpper()) {
+                if ('A' <= ch && ch <= 'Z') {
+                    if (countDict.ContainsKey(ch)) {
+                        countDict[ch]++;
+                    } else {
+                        countDict[ch] = 1;
+                    }
+                }
+                
+
+            }
+            foreach (var (key, value) in countDict) {
+                Console.WriteLine($"{key}:{value}");
+            }
         }
+        
+
     }
 }
