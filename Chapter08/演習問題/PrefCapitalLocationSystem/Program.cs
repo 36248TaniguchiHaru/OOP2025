@@ -1,4 +1,6 @@
-﻿namespace PrefCapitalLocationSystem {
+﻿using System.Runtime.ExceptionServices;
+
+namespace PrefCapitalLocationSystem {
     internal class Program {
         static private Dictionary<string, string> prefOfficeDict = new Dictionary<string, string>();
 
@@ -35,11 +37,13 @@
                     var anser = Console.ReadLine();
                     if (anser == "Y") {
                         //上書き
-                        prefCaptalLocation = Console.ReadLine();
-                    } else {
-                        //戻すやつ
-                        
-                    }
+                        if(prefCaptalLocation is not null)
+                        foreach (var item in prefOfficeDict.Keys) {
+                            if (pref == item)
+                                    prefOfficeDict[pref] = prefCaptalLocation;
+                        }
+                    } 
+
                 }
 
 
@@ -48,9 +52,9 @@
 
                 //*　ここに入力　*******************//
                 if (prefCaptalLocation is not null)
-                    prefOfficeDict[pref] = prefCaptalLocation;
-                else
-                    break;
+                    if (prefOfficeDict.ContainsKey(pref)==false)
+                        prefOfficeDict[pref] = prefCaptalLocation;
+                
 
                 Console.WriteLine();//改行
             }
