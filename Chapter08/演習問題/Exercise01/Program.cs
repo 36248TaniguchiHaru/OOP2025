@@ -1,4 +1,6 @@
 ﻿
+using System.Runtime.InteropServices;
+
 namespace Exercise01 {
     internal class Program {
         static void Main(string[] args) {
@@ -25,7 +27,18 @@ namespace Exercise01 {
             foreach (var (key, value) in countDict.OrderBy(s => s.Key)) {
                 Console.WriteLine($"{key}:{value}");
             }
-
+//-----------------------------------------------------------------------------
+            foreach (var uc in text.ToUpper()) {
+                if ('A' <= uc && uc <= 'Z') {
+                    if (countDict.ContainsKey(uc))
+                        countDict[uc]++;
+                    else
+                        countDict[uc]=1;
+                }
+            }
+            foreach (var item in countDict.OrderBy(x => x.Key)) {
+                Console.WriteLine("{0}:{1}", item.Key, item.Value);
+            }
         }
 
 
@@ -46,14 +59,23 @@ namespace Exercise01 {
                         countDict[ch] = 1;
                     }
                 }
-                
-
             }
             foreach (var (key, value) in countDict) {
                 Console.WriteLine($"{key}:{value}");
             }
-        }
-        
 
+//-----------------------------------------------------------------------------
+            foreach (var uc in text.ToUpper()) {
+                if ('A' <= uc && uc <= 'Z') {
+                    if (countDict.ContainsKey(uc))
+                        countDict[uc]++;
+                    else
+                        countDict[uc] = 1;
+                }
+            }
+            foreach (var item in countDict) {
+                Console.WriteLine("{0}:{1}", item.Key, item.Value);
+            }
+        }
     }
 }
