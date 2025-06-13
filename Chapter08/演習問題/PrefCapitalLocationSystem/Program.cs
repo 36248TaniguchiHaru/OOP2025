@@ -12,18 +12,16 @@
                 //①都道府県の入力
                 Console.Write("都道府県:");
                 pref = Console.ReadLine();
+                
 
                 if (pref == null) break;    //無限ループを抜ける(Ctrl + 'Z')
-               
-                    //県庁所在地の入力
-                    Console.Write("県庁所在地:");
+
+                //県庁所在地の入力
+                Console.Write("県庁所在地:");
                 prefCaptalLocation = Console.ReadLine();
+                
 
-
-                if (prefCaptalLocation is not null)
-                    prefOfficeDict[pref] = new prefCaptalLocation;
-                else
-                    break;
+                
                 //既に都道府県が登録されているか？
                 //ヒント：ContainsKeyを使用して調べる
 
@@ -40,7 +38,7 @@
                         prefCaptalLocation = Console.ReadLine();
                     } else {
                         //戻すやつ
-
+                        
                     }
                 }
 
@@ -49,7 +47,10 @@
                 //県庁所在地登録処理
 
                 //*　ここに入力　*******************//
-
+                if (prefCaptalLocation is not null)
+                    prefOfficeDict[pref] = prefCaptalLocation;
+                else
+                    break;
 
                 Console.WriteLine();//改行
             }
@@ -69,8 +70,11 @@
 
                     case "9"://無限ループを抜ける
 
+                        endFlag = true;
                         break;
+                        
                 }
+                
             }
         }
 
@@ -83,12 +87,15 @@
             Console.Write(">");
             var menuSelect = Console.ReadLine();
             return menuSelect;
+                
         }
 
 
         //一覧表示処理
         private static void allDisp() {
-
+            foreach (var item in prefOfficeDict) {
+                Console.WriteLine($"{item.Key}の県庁所在地は{item.Value}です。");
+            }
             //*　ここに入力　*******************//
         }
 
@@ -96,6 +103,11 @@
         private static void searchPrefCaptalLocation() {
             Console.Write("都道府県:");
             String? searchPref = Console.ReadLine();
+            foreach (var item in prefOfficeDict) {
+                if (searchPref == item.Key) 
+                Console.WriteLine($"{item.Key}の県庁所在地は{item.Value}です。");
+            }
+            
         }
     }
 }
