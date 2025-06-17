@@ -54,7 +54,8 @@ namespace PrefCapitalLocationSystem {
                 if (prefCaptalLocation is not null)
                     if (prefOfficeDict.ContainsKey(pref)==false)
                         prefOfficeDict[pref] = prefCaptalLocation;
-                
+                else
+                    break;
 
                 Console.WriteLine();//改行
             }
