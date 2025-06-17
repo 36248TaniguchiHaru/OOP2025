@@ -8,7 +8,7 @@
 
         }
 
-        //メソッドの概要： 
+        //メソッドの概要：StudentScore.csvを ','で区切ってそれぞれ配列に格納して返している
         private static IEnumerable<Student> ReadScore(string filePath) {
             var score = new List<Student>();
             var lines = File.ReadAllLines(filePath);
@@ -29,7 +29,7 @@
 
         }
 
-        //メソッドの概要： 
+        //メソッドの概要： 各教科ごとに点数を合計して返している
         public IDictionary<string, int> GetPerStudentScore() {
             var dict = new Dictionary<string, int>();
             foreach (var scores in _score) {
