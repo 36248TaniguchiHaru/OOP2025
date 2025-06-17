@@ -1,4 +1,7 @@
-﻿namespace Exercise02 {
+﻿using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
+
+namespace Exercise02 {
     internal class Program {
         static void Main(string[] args) {
             // コンストラクタの呼び出し
@@ -24,6 +27,9 @@
                 Console.WriteLine("削除できません");
             }
             Console.WriteLine();
+
+            //8.2.4
+            var query = abbrs.GetAll().Where(x=>x.Key.Length==3);
 
             // Getメソッドの利用例
             var names = new[] { "WHO", "FIFA", "NPT", };
@@ -52,6 +58,10 @@
                 Console.WriteLine($"{key}={value}");
             }
             Console.WriteLine();
+
+
+            //8.2.4
+
         }
     }
 }
