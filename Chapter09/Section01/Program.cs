@@ -23,18 +23,24 @@ namespace Section01 {
             //生まれてから〇日です
 
             var now = DateTime.Today.Date;
-            Console.WriteLine($"生まれてから{(now-birthday).Days}日目です");
+            Console.WriteLine($"生まれてから{(now - birthday).Days}日目です");
 
             //うるう年の判定プログラムを作成する
 
             Console.WriteLine("西暦を入力してください");
             var year = Console.ReadLine();
+            
             var IsLeapYear = DateTime.IsLeapYear(int.Parse(year));
+        
             if(IsLeapYear) {
                 Console.WriteLine($"{year}年はうるう年です");
             } else {
                 Console.WriteLine($"{year}年はうるう年ではありません");
             }
+
+            //キャリッジリターン
+            while(true)
+            Console.Write($"\r{DateTime.Now}");
         }
     }
 }
