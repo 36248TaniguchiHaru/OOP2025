@@ -49,6 +49,7 @@
             btRecordModify = new Button();
             btRecordDelete = new Button();
             ofdPicFileOpen = new OpenFileDialog();
+            btNewRecord = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecord).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbPicture).BeginInit();
@@ -243,9 +244,12 @@
             // 
             dgvRecord.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRecord.Location = new Point(104, 360);
+            dgvRecord.MultiSelect = false;
             dgvRecord.Name = "dgvRecord";
+            dgvRecord.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRecord.Size = new Size(616, 182);
             dgvRecord.TabIndex = 5;
+            dgvRecord.Click += dgvRecord_Click;
             // 
             // pbPicture
             // 
@@ -301,6 +305,7 @@
             btRecordModify.TabIndex = 8;
             btRecordModify.Text = "修正";
             btRecordModify.UseVisualStyleBackColor = true;
+            btRecordModify.Click += btRecordModify_Click;
             // 
             // btRecordDelete
             // 
@@ -312,16 +317,28 @@
             btRecordDelete.TabIndex = 7;
             btRecordDelete.Text = "削除";
             btRecordDelete.UseVisualStyleBackColor = true;
+            btRecordDelete.Click += btRecordDelete_Click;
             // 
             // ofdPicFileOpen
             // 
             ofdPicFileOpen.FileName = "openFileDialog1";
+            // 
+            // btNewRecord
+            // 
+            btNewRecord.Location = new Point(354, 43);
+            btNewRecord.Name = "btNewRecord";
+            btNewRecord.Size = new Size(80, 41);
+            btNewRecord.TabIndex = 9;
+            btNewRecord.Text = "新規追加";
+            btNewRecord.UseVisualStyleBackColor = true;
+            btNewRecord.Click += btNewRecord_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(744, 562);
+            Controls.Add(btNewRecord);
             Controls.Add(btRecordModify);
             Controls.Add(btRecordAdd);
             Controls.Add(btPicDelete);
@@ -343,6 +360,7 @@
             Controls.Add(label1);
             Name = "Form1";
             Text = "試乗レポート管理システム";
+            Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecord).EndInit();
@@ -379,5 +397,6 @@
         private Button btRecordModify;
         private Button btRecordDelete;
         private OpenFileDialog ofdPicFileOpen;
+        private Button btNewRecord;
     }
 }
