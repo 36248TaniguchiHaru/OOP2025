@@ -1,15 +1,22 @@
+using System.Xml.Linq;
 using CarReportSyste;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing.Text;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml;
 using static CarReportSyste.CarReport;
+using System.Xml.Serialization;
+
 
 namespace CarReportSystem {
     [Serializable]
     public partial class Form1 : Form {
         //カーレポート管理用リスト
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
+
+        //設定クラスのインスタンスを設定
+        Settings settings = new Settings();
 
         public Form1() {
             InitializeComponent();
@@ -39,11 +46,12 @@ namespace CarReportSystem {
                     Report = tbReport.Text,
                     Picture = pbPicture.Image,
                 };
+                setCbAuthor(cbAuthor.Text);
+                setCbCarName(cbCarName.Text);
                 tsslbMessage.Text = "";
                 listCarReports.Add(carReport);
                 InputItemsAllClear();
-                setCbAuthor(cbAuthor.Text);
-                setCbCarName(cbCarName.Text);
+
             }
         }
         private void InputItemsAllClear() {
@@ -116,7 +124,7 @@ namespace CarReportSystem {
         private void setCbCarName(string carName) {
             if (!cbCarName.Items.Contains(carName)) {
                 //未登録なら登録【登録済みなら何もしない】
-                cbAuthor.Items.Add(carName);
+                cbCarName.Items.Add(carName);
             }
         }
 
@@ -144,6 +152,16 @@ namespace CarReportSystem {
             InputItemsAllClear();
             dgvRecord.AlternatingRowsDefaultCellStyle.BackColor = Color.LightBlue;
 
+            //設定ファイルを読み込み背景色を設定する
+            /*string filePath = Environment.CurrentDirectory + "/Settings.xml";
+            AdministratorXml administratorXml = XmlLoader.Load<AdministratorXml>(filePath);
+            //XDocument xml = XDocument.Load(@"C:\Users\infosys\source\repos\OOP2025\FormApps\CarReportSystem\bin\Debug\net8.0-windows\setting.xml");
+            ColorDialog.Color = Settings.MainFormBackColor;*/
+            using (var reader = XmlReader.Create("setting.xml")) {
+                var serializer = new XmlSerializer(typeof(Settings));
+               var set= (serializer.Deserialize(reader)as Settings).MainFormBackColor;
+                //ColorDialog.Color = (Color)ColorConverter.ConvertFormString(set.MainFormBackColor);
+            }
 
         }
 
@@ -159,6 +177,8 @@ namespace CarReportSystem {
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
             if (ColorDialog.ShowDialog() == DialogResult.OK) {
                 BackColor = ColorDialog.Color;
+                //設定ファイルへ保存
+                settings.MainFormBackColor = ColorDialog.Color.ToArgb();
             }
         }
 
@@ -177,9 +197,9 @@ namespace CarReportSystem {
                         dgvRecord.DataSource = listCarReports;
 
                         //コンボボックス登録
-                        foreach (var report in listCarReports) { 
-                        setCbAuthor(report.Author);
-                        setCbCarName(report.CarName);
+                        foreach (var report in listCarReports) {
+                            setCbAuthor(report.Author);
+                            setCbCarName(report.CarName);
                         }
                     }
                 }
@@ -188,7 +208,7 @@ namespace CarReportSystem {
                 }
             }
         }
-        
+
 
 
         //ファイルセーブ処理
@@ -218,6 +238,14 @@ namespace CarReportSystem {
 
         private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
             reportOpenFile();
+        }
+
+        //フォームが閉じたら呼ばれる
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            using (var writer = XmlWriter.Create("setting.xml")) {
+                var serializer = new XmlSerializer(typeof(Settings));
+                serializer.Serialize(writer, settings);
+            }
         }
     }
 }
