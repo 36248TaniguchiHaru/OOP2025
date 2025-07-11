@@ -8,5 +8,6 @@ namespace CarReportSystem{
     public class Settings{
         //設置した色情報を格納
         public int MainFormBackColor { get; set; }
+        
     }
 }

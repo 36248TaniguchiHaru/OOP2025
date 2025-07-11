@@ -153,16 +153,21 @@ namespace CarReportSystem {
             dgvRecord.AlternatingRowsDefaultCellStyle.BackColor = Color.LightBlue;
 
             //設定ファイルを読み込み背景色を設定する
-            /*string filePath = Environment.CurrentDirectory + "/Settings.xml";
-            AdministratorXml administratorXml = XmlLoader.Load<AdministratorXml>(filePath);
-            //XDocument xml = XDocument.Load(@"C:\Users\infosys\source\repos\OOP2025\FormApps\CarReportSystem\bin\Debug\net8.0-windows\setting.xml");
-            ColorDialog.Color = Settings.MainFormBackColor;*/
-            using (var reader = XmlReader.Create("setting.xml")) {
-                var serializer = new XmlSerializer(typeof(Settings));
-               var set= (serializer.Deserialize(reader)as Settings).MainFormBackColor;
-                //ColorDialog.Color = (Color)ColorConverter.ConvertFormString(set.MainFormBackColor);
-            }
+            if (File.Exists("setting.xml")) {
+                try {
+                    using (var reader = XmlReader.Create("setting.xml")) {
+                        var serializer = new XmlSerializer(typeof(Settings));
+                        BackColor = Color.FromArgb((serializer.Deserialize(reader) as Settings).MainFormBackColor);
 
+                    }
+                }
+                catch(Exception ex) {
+                    tsslbMessage.Text = "設定ファイル読み込みエラー";
+                    MessageBox.Show(ex.Message);
+                }
+            } else {
+                tsslbMessage.Text="設定ファイルがありません";
+            }
         }
 
         private void tsmiExit_Click(object sender, EventArgs e) {
@@ -242,9 +247,17 @@ namespace CarReportSystem {
 
         //フォームが閉じたら呼ばれる
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            var setting = new Settings {
+                MainFormBackColor = BackColor.ToArgb()
+            };
+            try { 
             using (var writer = XmlWriter.Create("setting.xml")) {
                 var serializer = new XmlSerializer(typeof(Settings));
                 serializer.Serialize(writer, settings);
+            }
+            }
+            catch(Exception ex) {
+                MessageBox.Show(ex.Message);
             }
         }
     }
