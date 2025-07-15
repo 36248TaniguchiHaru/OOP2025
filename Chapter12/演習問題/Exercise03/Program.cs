@@ -16,14 +16,17 @@ namespace Exercise03 {
                 NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals |
                                  JsonNumberHandling.AllowReadingFromString
             };
-            var text = File.ReadAllText("C:/Users/infosys/source/repos/OOP2025/Chapter12/演習問題/Exercise03/employees.json");
+            var text = File.ReadAllText(filePath);
             var employees = JsonSerializer.Deserialize<Employee[]>(text,options);
-            return employees;
+            return employees ?? [];
         }
 
         static void ToXmlFile(Employee[] employees) {
+            XmlRootAttribute xRoot = new XmlRootAttribute {
+                ElementName = "Employee"
+            };
             using (var writer = XmlWriter.Create("employee.xml")) {
-                var serializer = new XmlSerializer(employees.GetType());
+                var serializer = new XmlSerializer(employees.GetType(),xRoot);
                 serializer.Serialize(writer, employees);
             }
         }
