@@ -71,7 +71,8 @@ namespace Exercise01 {
         //シリアル化してファイルへ出力する
         static Employee[] Deserialize_f(string filePath) {
             var text = File.ReadAllText("./employees.json");
-
+            var employees = JsonSerializer.Deserialize<Employee[]>(text);
+            return employees;
         }
 
     }
