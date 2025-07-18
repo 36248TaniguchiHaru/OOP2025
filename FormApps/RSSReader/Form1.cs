@@ -16,7 +16,7 @@ namespace RSSReader {
 
         private async void btRssGet_Click(object sender, EventArgs e) {
             using (var hc = new HttpClient()) {
-                XDocument xdoc = XDocument.Parse(await hc.GetStringAsync(tbUrl.Text));
+                XDocument xdoc = XDocument.Parse(await hc.GetStringAsync(a.Text));
 
 
                 //var url = hc.OpenRead(tbUrl.Text);
@@ -37,19 +37,27 @@ namespace RSSReader {
 
             }
 
-            
+
 
         }
 
         //タイトルを選択(クリック)したときに呼ばれるイベントハンドラ
         private void lbTitles_Click(object sender, EventArgs e) {
-            //webView21.Source = new Uri("https://yahoo.co.jp/");
             var selectItem = lbTitles.SelectedItem;
             foreach (var item in items) {
                 if (item.Title == selectItem) {
                     webView21.Source = new Uri(item.Link);
                 }
             }
+        }
+
+        //戻るボタン
+        private void button1_Click(object sender, EventArgs e) {
+            webView21.GoBack();
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            webView21.GoForward();
         }
     }
 }
