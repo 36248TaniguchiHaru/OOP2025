@@ -50,7 +50,6 @@ namespace RSSReader {
                     webView21.Source = new Uri(item.Link);
                 }
             }
-            
         }
     }
 }
