@@ -1,5 +1,6 @@
 using System.Net;
 using System.Xml.Linq;
+using System.Linq;
 using System;
 using System.Windows.Forms;
 using System.Diagnostics;
@@ -17,26 +18,49 @@ namespace RSSReader {
 
         public Form1() {
             InitializeComponent();
+            foreach (var item in dc) {
+                if (!comboBox1.Items.Contains(item.Key))
+                    comboBox1.Items.Add(item.Key);
+            }
         }
 
-        Dictionary<string, string> dc = new Dictionary<string, string>();
+        Dictionary<string, string> dc = new Dictionary<string, string>() {
+            {"éÂóv", "https://news.yahoo.co.jp/rss/topics/top-picks.xml"},
+            {"çëì‡", "https://news.yahoo.co.jp/rss/topics/domestic.xml"},
+            {"çëç€", "https://news.yahoo.co.jp/rss/topics/world.xml"},
+            {"åoçœ", "https://news.yahoo.co.jp/rss/topics/business.xml"},
+            {"ÉGÉìÉ^ÉÅ", "https://news.yahoo.co.jp/rss/topics/entertainment.xml"},
+            {"ÉXÉ|Å[Éc", "https://news.yahoo.co.jp/rss/topics/sports.xml"},
+            {"IT", "https://news.yahoo.co.jp/rss/topics/it.xml"},
+            {"â»äw", "https://news.yahoo.co.jp/rss/topics/science.xml"},
+            {"ínàÊ", "https://news.yahoo.co.jp/rss/topics/local.xml"}
+        };
+
+
+
 
         private async void btRssGet_Click(object sender, EventArgs e) {
+
             var a = true;
-            
+
             //URLÇÇ®ãCÇ…ì¸ÇËìoò^Ç∑ÇÈÉvÉçÉOÉâÉÄ
-            foreach (var item in dc) {
+            /*foreach (var item in dc) {
                 if (comboBox1.Text == item.Key) {
                     wvRssview.CoreWebView2.Navigate(item.Value);
                     a = false;
                     break;
                 }
-            }
+            }*/
 
-            /*foreach (var item in dc) {
+            foreach (var item in dc) {
                 if (comboBox1.Text == item.Key) {
                     using (var hc = new HttpClient()) {
-                        XDocument xdoc = XDocument.Parse(await hc.GetStringAsync(comboBox1.Text));
+                        XDocument xdoc = XDocument.Parse(await hc.GetStringAsync(item.Value));
+
+
+                        //var url = hc.OpenRead(tbUrl.Text);
+                        //XDocument xdoc = XDocument.Load(url);//RSSÇÃéÊìæ
+
                         //RSSÇâêÕÇµÇƒïKóvÇ»óvëfÇéÊìæ
                         items = xdoc.Root.Descendants("item")
                             .Select(x =>
@@ -44,14 +68,18 @@ namespace RSSReader {
                                     Title = (string)x.Element("title"),
                                     Link = (string)x.Element("link"),
                                 }).ToList();
+
                         //ÉäÉXÉgÉ{ÉbÉNÉXÇ÷É^ÉCÉgÉãÇï\é¶
                         lbTitles.Items.Clear();
                         items.ForEach(item => lbTitles.Items.Add(item.Title));
+
+
                     }
                     a = false;
                     break;
                 }
-            }*/
+            }
+
             if (a == true)
                 using (var hc = new HttpClient()) {
                     XDocument xdoc = XDocument.Parse(await hc.GetStringAsync(comboBox1.Text));
@@ -96,7 +124,7 @@ namespace RSSReader {
                 wvRssview.GoBack();
             }
         }
-        
+
         //êiÇﬁÉ{É^Éì
         private void button2_Click(object sender, EventArgs e) {
             if (wvRssview.CanGoForward == true) {
@@ -105,6 +133,26 @@ namespace RSSReader {
         }
 
         //Ç®ãCÇ…ì¸ÇËÉ{É^Éì
+        private void button3_Click(object sender, EventArgs e) {
+            if (!comboBox1.Items.Contains(textBox1.Text)) {
+                comboBox1.Items.Add(textBox1.Text);
+                //ñ¢ìoò^Ç»ÇÁìoò^Åyìoò^çœÇ›Ç»ÇÁâΩÇ‡ÇµÇ»Ç¢Åz
+                string strURL = wvRssview.Source.ToString();
+
+                int count = 0;
+
+                foreach (var item in dc) {
+                    if (item.Key == comboBox1.Text) break;
+                    else {
+                        count = +1;
+                    }
+                }
+                if (!(count + 9 >= dc.Count)) ;
+                dc.Add(textBox1.Text, comboBox1.Text);
+            }
+        }
+
+        //URLÇÇ®ãCÇ…ì¸ÇËìoò^
         /*private void button3_Click(object sender, EventArgs e) {
             if (!comboBox1.Items.Contains(textBox1.Text)) {
                 comboBox1.Items.Add(textBox1.Text);
@@ -113,16 +161,6 @@ namespace RSSReader {
                 dc.Add(textBox1.Text, strURL);
             }
         }*/
-        
-        //URLÇÇ®ãCÇ…ì¸ÇËìoò^
-        private void button3_Click(object sender, EventArgs e) {
-            if (!comboBox1.Items.Contains(textBox1.Text)) {
-                comboBox1.Items.Add(textBox1.Text);
-                //ñ¢ìoò^Ç»ÇÁìoò^Åyìoò^çœÇ›Ç»ÇÁâΩÇ‡ÇµÇ»Ç¢Åz
-                string strURL = wvRssview.Source.ToString();
-                dc.Add(textBox1.Text, strURL);
-            }
-        }
 
         private void wvRssLink_SourceChanged(object sender, Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e) {
             //GoFowardBt
