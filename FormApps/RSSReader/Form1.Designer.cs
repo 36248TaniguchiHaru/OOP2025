@@ -23,22 +23,16 @@
         ///  the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            a = new TextBox();
             btRssGet = new Button();
             lbTitles = new ListBox();
-            webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            wvRssview = new Microsoft.Web.WebView2.WinForms.WebView2();
             button1 = new Button();
             button2 = new Button();
-            ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
+            comboBox1 = new ComboBox();
+            button3 = new Button();
+            textBox1 = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)wvRssview).BeginInit();
             SuspendLayout();
-            // 
-            // a
-            // 
-            a.Font = new Font("Yu Gothic UI", 14F);
-            a.Location = new Point(123, 13);
-            a.Name = "a";
-            a.Size = new Size(489, 32);
-            a.TabIndex = 0;
             // 
             // btRssGet
             // 
@@ -57,23 +51,23 @@
             lbTitles.Font = new Font("Yu Gothic UI", 12F);
             lbTitles.FormattingEnabled = true;
             lbTitles.ItemHeight = 21;
-            lbTitles.Location = new Point(12, 51);
+            lbTitles.Location = new Point(12, 93);
             lbTitles.Name = "lbTitles";
             lbTitles.Size = new Size(681, 130);
             lbTitles.TabIndex = 2;
             lbTitles.Click += lbTitles_Click;
             // 
-            // webView21
+            // wvRssview
             // 
-            webView21.AllowExternalDrop = true;
-            webView21.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            webView21.CreationProperties = null;
-            webView21.DefaultBackgroundColor = Color.White;
-            webView21.Location = new Point(12, 191);
-            webView21.Name = "webView21";
-            webView21.Size = new Size(681, 449);
-            webView21.TabIndex = 3;
-            webView21.ZoomFactor = 1D;
+            wvRssview.AllowExternalDrop = true;
+            wvRssview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            wvRssview.CreationProperties = null;
+            wvRssview.DefaultBackgroundColor = Color.White;
+            wvRssview.Location = new Point(12, 242);
+            wvRssview.Name = "wvRssview";
+            wvRssview.Size = new Size(681, 398);
+            wvRssview.TabIndex = 3;
+            wvRssview.ZoomFactor = 1D;
             // 
             // button1
             // 
@@ -95,31 +89,61 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // comboBox1
+            // 
+            comboBox1.Font = new Font("Yu Gothic UI", 11F);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(114, 14);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(498, 28);
+            comboBox1.TabIndex = 6;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(554, 50);
+            button3.Name = "button3";
+            button3.Size = new Size(93, 37);
+            button3.TabIndex = 7;
+            button3.Text = "お気に入り登録";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // textBox1
+            // 
+            textBox1.Font = new Font("Yu Gothic UI", 12F);
+            textBox1.Location = new Point(156, 53);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(392, 29);
+            textBox1.TabIndex = 8;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(705, 652);
+            Controls.Add(textBox1);
+            Controls.Add(button3);
+            Controls.Add(comboBox1);
             Controls.Add(button2);
             Controls.Add(button1);
-            Controls.Add(webView21);
+            Controls.Add(wvRssview);
             Controls.Add(lbTitles);
             Controls.Add(btRssGet);
-            Controls.Add(a);
             Name = "Form1";
             Text = "RSSリーダー";
-            ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
+            ((System.ComponentModel.ISupportInitialize)wvRssview).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private TextBox a;
         private Button btRssGet;
         private ListBox lbTitles;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private Microsoft.Web.WebView2.WinForms.WebView2 wvRssview;
         private Button button1;
         private Button button2;
+        private ComboBox comboBox1;
+        private Button button3;
+        private TextBox textBox1;
     }
 }
