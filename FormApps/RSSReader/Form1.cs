@@ -136,9 +136,8 @@ namespace RSSReader {
         private void button3_Click(object sender, EventArgs e) {
             if (!comboBox1.Items.Contains(textBox1.Text)) {
                 comboBox1.Items.Add(textBox1.Text);
-                //–¢“o˜^‚È‚ç“o˜^y“o˜^Ï‚Ý‚È‚ç‰½‚à‚µ‚È‚¢z
-                string strURL = wvRssview.Source.ToString();
 
+                //–¢“o˜^‚È‚ç“o˜^y“o˜^Ï‚Ý‚È‚ç‰½‚à‚µ‚È‚¢z
                 int count = 0;
 
                 foreach (var item in dc) {
@@ -148,6 +147,7 @@ namespace RSSReader {
                     }
                 }
                 if (!(count + 9 >= dc.Count)) ;
+                string strURL = wvRssview.Source.ToString();
                 dc.Add(textBox1.Text, comboBox1.Text);
             }
         }
@@ -166,6 +166,14 @@ namespace RSSReader {
             //GoFowardBt
         }
 
-
+        private void button4_Click(object sender, EventArgs e) {
+            if(comboBox1.Text!=string.Empty)
+                foreach (var item in dc) {
+                    if (comboBox1.Text == item.Key) {
+                        comboBox1.Items.Remove(item.Key);
+                        dc.Remove(item.Key);
+                    }
+                }
+        }
     }
 }
