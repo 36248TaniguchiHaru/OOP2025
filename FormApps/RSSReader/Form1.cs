@@ -80,7 +80,7 @@ namespace RSSReader {
                 }
             }
 
-            if (a == true)
+            /*if (a == true)
                 using (var hc = new HttpClient()) {
                     XDocument xdoc = XDocument.Parse(await hc.GetStringAsync(comboBox1.Text));
 
@@ -101,7 +101,7 @@ namespace RSSReader {
                     items.ForEach(item => lbTitles.Items.Add(item.Title));
 
 
-                }
+                }*/
 
 
 
@@ -146,10 +146,10 @@ namespace RSSReader {
                         count = +1;
                     }
                 }
-                if (!(count + 9 >= dc.Count)) ;
-                string strURL = wvRssview.Source.ToString();
+                if (!(count + 9 >= dc.Count)) 
                 dc.Add(textBox1.Text, comboBox1.Text);
             }
+            textBox1.Text.Clone();
         }
 
         //URL‚ð‚¨‹C‚É“ü‚è“o˜^
