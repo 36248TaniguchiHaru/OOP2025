@@ -10,7 +10,7 @@ namespace Exercise04 {
             //var pattern = @"\b[v|V]ersion\s*=\s*"v4.0"";
            
             
-            var newlines = lines.Select(s=>Regex.Replace(s, @"\b([v|V]ersion)\s*=\s*\""v4.0\""", "version=\"v5.0\""));
+            var newlines = lines.Select(s=>Regex.Replace(s, @"\b([v|V]ersion)\s*=\s*""v4\.0""", "version=\"v5.0\""));
             
 
 
