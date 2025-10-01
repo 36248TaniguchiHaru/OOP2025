@@ -118,7 +118,6 @@ namespace CarReportSystem {
                 //ñ¢ìoò^Ç»ÇÁìoò^Åyìoò^çœÇ›Ç»ÇÁâΩÇ‡ÇµÇ»Ç¢Åz
                 cbAuthor.Items.Add(author);
             }
-
         }
 
         private void setCbCarName(string carName) {
