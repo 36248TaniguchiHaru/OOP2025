@@ -95,8 +95,12 @@ namespace ColorChecker {
         }
 
         private void colorSelectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            var comboSelectMyColor = (MyColor)((ComboBox)sender).SelectedItem;
-            setSliderValue(comboSelectMyColor.Color);
+            var comboBox = (ComboBox)sender;
+            var selectedItem = comboBox.SelectedItem;
+
+            if (selectedItem is MyColor comboSelectMyColor) {
+                setSliderValue(comboSelectMyColor.Color);
+            }
         }
 
 
@@ -113,15 +117,17 @@ namespace ColorChecker {
             };
             colorArea.Background = new SolidColorBrush(myColor.Color);
 
-            /*currentColor.Color = myColor.Color;
-            currentColor.Name = ((MyColor[])DataContext).Where(c => c.Color.Equals(currentColor.Color)).Select(x => x.Name).FirstOrDefault();
-
-            for (int i = 0; i < ((MyColor[])DataContext).Length; i++) {
-                if ((MyColor[])DataContext) [i].Color.Equals(crrentColor.Color){
-                    currentColor.Name = ((MyColor[])DataContext)[i].Name;
-                    break;
-                }
-            }*/
+            var colorList = (MyColor[])DataContext;
+            var matchedColor = colorList.FirstOrDefault(c => c.Color.R == myColor.Color.R &&
+                                                             c.Color.G == myColor.Color.G &&
+                                                             c.Color.B == myColor.Color.B);
+            if (matchedColor != null) {
+                colorSelectComboBox.SelectedItem = matchedColor;
+            } else {
+                colorSelectComboBox.SelectedItem = null; 
+            }
         }
+
     }
 }
+

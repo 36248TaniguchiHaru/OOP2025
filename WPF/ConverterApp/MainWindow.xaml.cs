@@ -23,6 +23,40 @@ namespace ConverterApp
         public MainWindow()
         {
             InitializeComponent();
+
+            MetricUnit.Items.Add("mm");
+            MetricUnit.Items.Add("cm");
+            MetricUnit.Items.Add("m");
+            MetricUnit.Items.Add("km");
+            MetricUnit.SelectedIndex = 0;
+
+            ImperialUnit.Items.Add("in");
+            ImperialUnit.Items.Add("ft");
+            ImperialUnit.Items.Add("yd");
+            ImperialUnit.Items.Add("ml");
+            ImperialUnit.SelectedIndex = 0;
+        }
+
+        private void ImperialUnitToMetric_Click(object sender, RoutedEventArgs e) {
+            int number;
+            bool downValue = int.TryParse(MetricValue.Text, out number);
+            if (downValue) {
+                if (MetricUnit.SelectedIndex == 0) {
+                    
+                } else if (MetricUnit.SelectedIndex == 1) {
+
+                }else if(MetricUnit.SelectedIndex == 2) {
+
+                }else if (MetricUnit.SelectedIndex == 3) {
+
+                }
+            } else {
+
+            }
+        }
+
+        private void MetricToImperialUnit_Click(object sender, RoutedEventArgs e) {
+            var upValue = ImperialValue.Text;
         }
     }
 }
