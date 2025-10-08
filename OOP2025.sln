@@ -188,6 +188,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "WPF\HelloWorl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismObservesSample", "WPF\PrismObservesSample\PrismObservesSample.csproj", "{204506A1-E14A-4D0F-932D-15173B9FE77B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleUnitConverter", "WPF\SampleUnitConverter\SampleUnitConverter.csproj", "{4BD4D24F-988A-4A1E-9655-955FA400082D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -888,6 +890,18 @@ Global
 		{204506A1-E14A-4D0F-932D-15173B9FE77B}.Release|x64.Build.0 = Release|Any CPU
 		{204506A1-E14A-4D0F-932D-15173B9FE77B}.Release|x86.ActiveCfg = Release|Any CPU
 		{204506A1-E14A-4D0F-932D-15173B9FE77B}.Release|x86.Build.0 = Release|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Debug|x64.Build.0 = Debug|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Debug|x86.Build.0 = Debug|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Release|x64.ActiveCfg = Release|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Release|x64.Build.0 = Release|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Release|x86.ActiveCfg = Release|Any CPU
+		{4BD4D24F-988A-4A1E-9655-955FA400082D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -963,6 +977,7 @@ Global
 		{61692475-F492-4181-BA25-099076CADEC2} = {1D144B6A-DFF0-4791-9049-A07E9DE213EB}
 		{35621A37-7C63-4615-A00D-A3D1CF6FB30F} = {1D144B6A-DFF0-4791-9049-A07E9DE213EB}
 		{204506A1-E14A-4D0F-932D-15173B9FE77B} = {1D144B6A-DFF0-4791-9049-A07E9DE213EB}
+		{4BD4D24F-988A-4A1E-9655-955FA400082D} = {1D144B6A-DFF0-4791-9049-A07E9DE213EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AD015B08-97F9-4B7C-B615-3791F75B30DD}
