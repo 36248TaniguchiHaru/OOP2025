@@ -21,7 +21,6 @@ using static System.Net.Mime.MediaTypeNames;
 namespace ColorChecker {
     public partial class MainWindow : Window {
 
-
         public MainWindow() {
             InitializeComponent();
             DataContext = GetColorList();
@@ -64,7 +63,6 @@ namespace ColorChecker {
             } else if (!listBox.Items.Contains(rgbText)) {
                 listBox.Items.Add(rgbText);
             }
-
         }
 
 
@@ -103,7 +101,6 @@ namespace ColorChecker {
             }
         }
 
-
         private void setSliderValue(Color color) {
             rSlider.Value = color.R;
             gSlider.Value = color.G;
@@ -127,7 +124,6 @@ namespace ColorChecker {
                 colorSelectComboBox.SelectedItem = null; 
             }
         }
-
     }
 }
 
