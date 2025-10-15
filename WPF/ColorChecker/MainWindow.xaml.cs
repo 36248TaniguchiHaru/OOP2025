@@ -23,7 +23,18 @@ namespace ColorChecker {
 
         public MainWindow() {
             InitializeComponent();
-            DataContext = GetColorList();
+            var colorList = GetColorList();
+            DataContext = colorList;
+
+            Loaded += (s, e) =>
+            {
+                var blackColor = colorList.FirstOrDefault(c => c.Name == "Black");
+                if (blackColor != null) {
+                    colorSelectComboBox.SelectedItem = blackColor;
+                    setSliderValue(blackColor.Color);
+                    colorArea.Background = new SolidColorBrush(blackColor.Color);
+                }
+            };
         }
 
         private MyColor[] GetColorList() {

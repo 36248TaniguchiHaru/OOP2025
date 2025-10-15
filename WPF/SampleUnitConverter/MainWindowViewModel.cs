@@ -6,9 +6,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Prism.Mvvm;
 
 namespace SampleUnitConverter{
-    internal class MainWindowViewModel :ViewModel{
+    internal class MainWindowViewModel :BindableBase{
 
         //フィールド
         private double metricValue;
@@ -27,18 +28,12 @@ namespace SampleUnitConverter{
         //プロパティ
         public double MetricValue {
             get => metricValue;
-            set {
-                this.metricValue = value;
-                this.OnPropertyChanged();
-            }
+            set => SetProperty(ref metricValue, value);
         }
 
         public double ImperialValue {
             get => imperialValue;
-            set {
-                this.imperialValue = value;
-                this.OnPropertyChanged();
-            }
+            set => SetProperty(ref imperialValue, value);
         }
 
         public MainWindowViewModel() {
