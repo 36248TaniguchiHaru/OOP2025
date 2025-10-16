@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Sample.Data{
     public class Person{
-        [PrimaryKey,AutoIncrement]
-        public int Id { get; set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; } 
         /// <summary>
         /// 名前
         /// </summary>
@@ -18,6 +18,5 @@ namespace Sample.Data{
         /// 電話番号
         /// </summary>
         public string Phone { get; set; } = string.Empty;
-
     }
 }

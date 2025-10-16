@@ -82,4 +82,24 @@ public partial class MainWindow : Window{
             PhoneTextBox.Text = item.Phone;
         }
     }
+
+    private void UpdareButton_Click(object sender, RoutedEventArgs e) {
+        var item = PersonListView.SelectedItem as Person;
+        if (item is null) return;
+
+        using (var connection = new SQLiteConnection(App.databasePath)) {
+            connection.CreateTable<Person>();
+
+            var person = new Person() {
+                Id=item.Id,
+                Name = NameTextBox.Text,
+                Phone = PhoneTextBox.Text,
+            };
+
+            connection.Update(person);
+            
+            ReadDatabase();
+            PersonListView.ItemsSource = _persons;
+        }
+    }
 }

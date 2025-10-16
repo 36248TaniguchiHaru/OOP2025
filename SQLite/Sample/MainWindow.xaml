@@ -10,6 +10,7 @@
         <StackPanel Margin="10">
             <TextBox x:Name="NameTextBox"/>
             <TextBox x:Name="PhoneTextBox"/>
+            <Button Content="更新" x:Name="UpdateButton" Click="UpdareButton_Click"/>
             <Button Content="保存" x:Name="SaveButton" Click="SaveButton_Click"/>
             <Button Content="取得" x:Name="ReadButton" Click="ReadButton_Click"/>
             <Button Content="削除" x:Name="DeleteButton" Click="DeleteButton_Click"/>
