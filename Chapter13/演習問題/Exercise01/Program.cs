@@ -34,9 +34,13 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_3() {
-            for (int count = 2020; count <= 2023; count++) {
+            /*for (int count = 2020; count <= 2023; count++) {
                 var book = Library.Books.Count(s => s.PublishedYear == count);
                     Console.WriteLine($"{count}: {book}");
+            }*/
+            var select = Library.Books.GroupBy(s => s.PublishedYear);
+            foreach (var item in select) {
+                Console.WriteLine($"{item.Key}: {item.Count()}");
             }
 
         }
