@@ -20,8 +20,8 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_2() {
-            var selected = Library.Books.Max(b => b.Price);
-            Console.WriteLine(selected);
+            var select = Library.Books.MaxBy(b => b.Price);
+            Console.WriteLine(select);
             /*var selected = Library.Books
                 .GroupBy(b => b.PublishedYear)
                 .Select(group => group.MaxBy(b => b.Price))
@@ -38,14 +38,21 @@ namespace Exercise01 {
                 var book = Library.Books.Count(s => s.PublishedYear == count);
                     Console.WriteLine($"{count}: {book}");
             }
+
         }
 
         private static void Exercise1_4() {
-            
+            var books = Library.Books
+                .OrderByDescending(b => b!.Price)
+                .OrderByDescending(b => b!.PublishedYear);
+            foreach (var book in books) {
+                Console.WriteLine($"{book!.PublishedYear}年 {book!.Price}円 {book!.Title}");
+            }
         }
 
         private static void Exercise1_5() {
-            
+            var select = Library.Books.Where(b => b.PublishedYear == 2022);
+
         }
 
         private static void Exercise1_6() {
