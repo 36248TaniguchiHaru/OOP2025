@@ -30,7 +30,7 @@ namespace Exercise01 {
             foreach (var book in selected) {
                 Console.WriteLine($"{book!.PublishedYear}年 {book!.Title} ({book!.Price})");
             }*/
-            
+
         }
 
         private static void Exercise1_3() {
@@ -56,17 +56,17 @@ namespace Exercise01 {
 
         private static void Exercise1_5() {
             var select = Library.Books.Where(b => b.PublishedYear == 2022)
-                .Select(s=>s.CategoryId).Distinct();
+                .Select(s => s.CategoryId).Distinct();
             foreach (var item in select) {
-                var category=Library.Categories.Where(s => s.Id == item);
+                var category = Library.Categories.Where(s => s.Id == item);
                 foreach (var items in category) {
                     Console.WriteLine(items.Name);
-                }  
+                }
             }
         }
 
         private static void Exercise1_6() {
-            var categories = Library.Categories.Select(s=>s.Id);
+            var categories = Library.Categories.Select(s => s.Id);
             foreach (var category in categories) {
                 var selected = Library.Categories.Where(s => s.Id == category).Select(s => s.Name);
                 foreach (var select in selected) {
@@ -77,15 +77,25 @@ namespace Exercise01 {
                         Console.WriteLine($"   {books.Title}");
                     }
                 }
-            } 
+            }
         }
 
         private static void Exercise1_7() {
-            
+            var select = Library.Books.Where(s => s.CategoryId
+            == Library.Categories.Where(s => s.Name == "Development").Select(s => s.Id).First());
+            var year = Library.Books.OrderBy(s => s.PublishedYear).Select(s => s.PublishedYear).Distinct();
+            foreach (var item in year) {
+                Console.WriteLine($"# {item}");
+                foreach (var category in select) {
+                    if (category.PublishedYear == item) {
+                        Console.WriteLine($"   {category.Title}");
+                    }
+                }
+            }
         }
 
         private static void Exercise1_8() {
-            
+
         }
     }
 }
