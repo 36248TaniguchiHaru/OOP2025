@@ -29,7 +29,6 @@ namespace Exercise01 {
             foreach (var item in select) {
                 Console.WriteLine($"{item.Key}: {item.Count()}");
             }
-
         }
 
         private static void Exercise1_4() {
@@ -65,6 +64,26 @@ namespace Exercise01 {
                     }
                 }
             }
+
+            /*  模範解答
+            var groups = Library.Books
+                       .Join(Library.Categories,
+                               b => b.CategoryId,
+                               c => c.Id,
+                               (b, c) => new {
+                                   CategoryName = c.Name,
+                                   b.Title
+                               }
+                        )
+                       .GroupBy(x => x.CategoryName)
+                       .OrderBy(x => x.Key);
+            foreach (var group in groups) {
+                Console.WriteLine($"# {group.Key}");
+                foreach (var book in group) {
+                    Console.WriteLine($"   {book.Title}");
+                }
+            }
+            */
         }
 
         private static void Exercise1_7() {
@@ -79,9 +98,29 @@ namespace Exercise01 {
                     }
                 }
             }
-            
-        }
 
+            /* 模範解答
+            var groups = Library.Categories
+                        .Where(x => x.Name.Equals("Development"))
+                        .Join(Library.Books,
+                               c => c.Id,
+                               b => b.CategoryId,
+                               (c, b) => new {
+                                   b.Title,
+                                   b.PublishedYear
+                               }
+                        )
+                       .GroupBy(x => x.PublishedYear)
+                       .OrderBy(x => x.Key);
+            foreach (var group in groups) {
+                Console.WriteLine($"# {group.Key}");
+                foreach (var book in group) {
+                    Console.WriteLine($"   {book.Title}");
+                }
+            }
+            */
+        }
+        
         private static void Exercise1_8() {
             var groups = Library.Categories
                 .GroupJoin(Library.Books,
