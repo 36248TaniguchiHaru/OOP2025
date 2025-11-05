@@ -29,26 +29,13 @@ namespace Exercise01_WinForm {
                 ofd.Title = "読み込むファイルを選択してください";
 
                 if (ofd.ShowDialog() == DialogResult.OK) {
-                    try {
-                        using (var reader = new StreamReader(ofd.FileName)) {
-                            string content = await reader.ReadToEndAsync();
-                            var txtBox = Controls["txtContent"] as TextBox;
-                            if (txtBox != null) {
-                                txtBox.Text = content;
-                            }
+                    using (var reader = new StreamReader(ofd.FileName)) {
+                        string content = await reader.ReadToEndAsync();
+                        var txtBox = Controls["txtContent"] as TextBox;
+                        if (txtBox != null) {
+                            txtBox.Text = content;
+                            await Task.Delay(10);
                         }
-                    }
-                    catch (IOException ioEx) {
-                        MessageBox.Show($"ファイルの読み込み中にエラーが発生しました:\n{ioEx.Message}",
-                            "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (UnauthorizedAccessException uaEx) {
-                        MessageBox.Show($"アクセス権限がありません:\n{uaEx.Message}",
-                            "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (Exception ex) {
-                        MessageBox.Show($"予期しないエラーが発生しました:\n{ex.Message}",
-                            "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
