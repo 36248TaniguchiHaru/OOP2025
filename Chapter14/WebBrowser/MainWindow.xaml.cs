@@ -1,7 +1,10 @@
-﻿using System.Net;
+﻿using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.WinForms;
+using System.Net;
 using System.Net.Http;
 using System.Security.Policy;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,19 +24,46 @@ public partial class MainWindow : Window{
 
     public MainWindow(){
         InitializeComponent();
+        InitializeAsync();
+    }
+
+    private async void InitializeAsync() {
+        await WebView.EnsureCoreWebView2Async();
+
+        WebView.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
+        WebView.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
+
+    }
+
+    private void CoreWebView2_NavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e) {
+        LoadingBar.Visibility = Visibility.Collapsed;
+        LoadingBar.IsIndeterminate = false;
+    }
+
+    private void CoreWebView2_NavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e) {
+        LoadingBar.Visibility = Visibility.Visible;
+        LoadingBar.IsIndeterminate = true;
     }
 
     private void BackButton_Click(object sender, RoutedEventArgs e) {
-        WebView.GoBack();
+        if (WebView.CanGoBack) {
+            WebView.GoBack();
+        } else {
+
+        }  
     }
 
     private void FowardButton_Click(object sender, RoutedEventArgs e) {
-        WebView.GoForward();
+        if (WebView.CanGoForward) {
+            WebView.GoForward();
+        } else {
+
+        }
     }
 
     private void GoButton_Click(object sender, RoutedEventArgs e) {
-        //WebView.Source = new Uri(AdderssBar.Text);
-        if (AdderssBar.Text != ""){
+
+        if (AdderssBar.Text.Length!=0){
             if (!AdderssBar.Text.StartsWith("http://") & !AdderssBar.Text.StartsWith("https://"))
                 AdderssBar.Text = "https://" + AdderssBar.Text;
 
@@ -52,6 +82,7 @@ public partial class MainWindow : Window{
                 MessageBox.Show(ex.Message + "\nご指定のURLでは、ホームページを開く事ができませんでした。", "URLエラー", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            WebView.Source = new Uri(AdderssBar.Text);
         } else {
             MessageBox.Show("URLを入力してください。");
         }
