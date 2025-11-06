@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System.Net;
+using System.Net.Http;
+using System.Security.Policy;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,10 +17,9 @@ namespace WebBrowser;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window
-{
-    public MainWindow()
-    {
+public partial class MainWindow : Window{
+
+    public MainWindow(){
         InitializeComponent();
     }
 
@@ -26,10 +28,33 @@ public partial class MainWindow : Window
     }
 
     private void FowardButton_Click(object sender, RoutedEventArgs e) {
-
+        WebView.GoForward();
     }
 
     private void GoButton_Click(object sender, RoutedEventArgs e) {
-        WebView.Source = new Uri(AdderssBar.Text);
+        //WebView.Source = new Uri(AdderssBar.Text);
+        if (AdderssBar.Text != ""){
+            if (!AdderssBar.Text.StartsWith("http://") & !AdderssBar.Text.StartsWith("https://"))
+                AdderssBar.Text = "https://" + AdderssBar.Text;
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AdderssBar.Text);
+            request.Method = "HEAD";
+
+            try {
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                if (response.StatusCode != HttpStatusCode.OK) {
+                    MessageBox.Show("ご指定のURLでは、ホームページを開く事ができませんでした。", "URLエラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message + "\nご指定のURLでは、ホームページを開く事ができませんでした。", "URLエラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        } else {
+            MessageBox.Show("URLを入力してください。");
+        }
     }
+
 }
