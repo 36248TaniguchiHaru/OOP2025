@@ -7,7 +7,7 @@ using static System.Console;
 namespace Exercise01 {
     class Program {
         static void Main() {
-            string filePath = @"C:\Users\infosys\source\repos\OOP2025\Chapter10\演習問題\Exercise01\Load.cs";
+            string filePath = @"C:\Users\infosys\source\repos\OOP2025\Chapter14\Sction03\Program.cs";
 
             //①
             /*using (StreamReader reader = new StreamReader(filePath)) {
