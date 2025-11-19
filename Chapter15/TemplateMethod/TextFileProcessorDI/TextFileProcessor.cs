@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TextFileProcessorDI {
     internal class TextFileProcessor {
-        private ITextFileService _service;
+        private LineToHalfNumberService _service;
 
         //コンストラクタ
-        public TextFileProcessor(ITextFileService service) {
+        public TextFileProcessor(LineToHalfNumberService service) {
             _service = service;
         }
 
