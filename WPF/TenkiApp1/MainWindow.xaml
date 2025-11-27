@@ -1,0 +1,66 @@
+﻿<Window x:Class="TenkiApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="天気アプリ" Height="600" Width="900">
+    <DockPanel>
+        <!-- 上部パネル -->
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="10">
+            <DatePicker SelectedDate="{Binding SelectedDate}" Width="150" Margin="0,0,10,0"/>
+            <ComboBox SelectedItem="{Binding SelectedDetail}" Width="150" Margin="0,0,10,0">
+                <ComboBoxItem Content="気温"/>
+                <ComboBoxItem Content="湿度"/>
+                <ComboBoxItem Content="風向"/>
+                <ComboBoxItem Content="降水量"/>
+            </ComboBox>
+            <Button Content="更新" Command="{Binding UpdateCommand}" />
+        </StackPanel>
+
+        <!-- 読み込み中インジケータ -->
+        <ProgressBar DockPanel.Dock="Top" Height="5" IsIndeterminate="True"
+                     Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+        <!-- メインエリア -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- 地図エリア -->
+            <Border Grid.Column="0" Margin="10" BorderBrush="Gray" BorderThickness="1">
+                < Source="{Binding MapUrl}" />
+            </Border>
+
+            <!-- 天気情報表示 -->
+            <ScrollViewer Grid.Column="1" Margin="10">
+                <StackPanel>
+                    <TextBlock Text="{Binding CurrentWeather.LocationName}" FontSize="18" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                        <Image Source="{Binding IconUrl}" Width="50" Height="50" Margin="0,0,10,0"/>
+                        <TextBlock Text="{Binding CurrentWeather.Description}" FontSize="16"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding CurrentWeather.Temperature, StringFormat='気温: {0}℃'}"/>
+                    <TextBlock Text="{Binding CurrentWeather.Humidity, StringFormat='湿度: {0}%'}"/>
+                    <TextBlock Text="{Binding CurrentWeather.WindSpeed, StringFormat='風速: {0}m/s'}"/>
+                    <TextBlock Text="{Binding CurrentWeather.WindDirection, StringFormat='風向: {0}°'}"/>
+                    <TextBlock Text="{Binding CurrentWeather.RainVolume, StringFormat='降水量: {0}mm'}"/>
+
+                    <TextBlock Text="予報" FontSize="16" FontWeight="Bold" Margin="0,10,0,5"/>
+                    <ItemsControl ItemsSource="{Binding FilteredForecastList}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="{Binding DateTime, StringFormat='{}{0:MM/dd HH:mm}'}" Width="100"/>
+                                    <TextBlock Text="{Binding Temperature, StringFormat='気温: {0}℃'}" Width="100"/>
+                                    <TextBlock Text="{Binding Humidity, StringFormat='湿度: {0}%'}" Width="80"/>
+                                    <TextBlock Text="{Binding Description}" Width="150"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</Window>

@@ -1,12 +1,182 @@
-﻿<Window x:Class="TenkiApp.MainWindow"
+﻿<Window x:Class="TenkiAppWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TenkiApp"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="天気予報" Height="700" Width="700" ResizeMode="NoResize">
 
+    <Grid Background="#0066CC">
+        <!-- 地図 (ItemsControl) -->
+        <ItemsControl ItemsSource="{Binding CityList}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas>
+                        <Canvas.Background>
+                            <!-- パスは環境に合わせて適宜修正してください -->
+                            <ImageBrush ImageSource="C:\Users\infosys\source\repos\OOP2025\WPF\TenkiApp\japan_map.png" Stretch="UniformToFill" Opacity="0.8"/>
+                        </Canvas.Background>
+                    </Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White" 
+                            CornerRadius="5" 
+                            Width="65" 
+                            Height="75"
+                            Padding="5">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.3"/>
+                        </Border.Effect>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Background="#CCCCCC" CornerRadius="2" Margin="-2,-2,-2,0" VerticalAlignment="Top">
+                                <TextBlock Text="{Binding NameJP}" 
+                                           FontWeight="Bold" 
+                                           FontSize="10" 
+                                           HorizontalAlignment="Center" 
+                                           Padding="2"/>
+                            </Border>
+
+                            <Viewbox Grid.Row="1" Margin="2">
+                                <TextBlock Text="{Binding Icon}" 
+                                           Foreground="{Binding IconColor}" 
+                                           FontWeight="Bold"/>
+                            </Viewbox>
+
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding TempMax}" Foreground="Red" FontWeight="Bold" FontSize="14"/>
+                                <TextBlock Text="/" Foreground="Gray" Margin="2,0"/>
+                                <TextBlock Text="{Binding TempMin}" Foreground="Blue" FontWeight="Bold" FontSize="14"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="3" 
+                                       Text="{Binding RainChance}" 
+                                       HorizontalAlignment="Center" 
+                                       FontSize="10" 
+                                       FontWeight="Bold"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StackPanel Orientation="Horizontal" 
+                    Margin="20,20,0,0" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top">
+            <!-- 修正: タイトルをバインディング -->
+            <TextBlock Text="{Binding TitleDate}" 
+                       Foreground="White" 
+                       FontSize="24" 
+                       FontWeight="Bold" />
+
+            <!-- 🔴 追加: 日付ピッカー -->
+            <DatePicker Name="DateSelector"
+                        SelectedDate="{Binding SelectedDate}"
+                        Width="120"
+                        Margin="20, 0, 0, 0"
+                        VerticalAlignment="Center"
+                        SelectedDateChanged="DateSelector_SelectedDateChanged"/>
+        </StackPanel>
+
+        <!-- 検索UIエリア -->
+        <StackPanel Orientation="Horizontal" 
+                Margin="20, 60, 0, 0" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left">
+
+            <!-- 🔴 修正: TextBoxをComboBoxに変更し、サジェストに対応 -->
+            <ComboBox Name="SearchComboBox" 
+                      IsEditable="True" 
+                      Width="150" 
+                      Height="28" 
+                      FontSize="14" 
+                      VerticalContentAlignment="Center"
+                      ItemsSource="{Binding SuggestedCities}"
+                      Text="地域名を入力"
+                      TextBoxBase.TextChanged="SearchComboBox_TextChanged"
+                      GotFocus="SearchComboBox_GotFocus"
+                      LostFocus="SearchComboBox_LostFocus"/>
+
+            <Button Content="検索" 
+                    Width="60" 
+                    Height="28" 
+                    Margin="10,0,0,0"
+                    Click="SearchButton_Click"/>
+        </StackPanel>
+
+        <!-- 現在地の表示エリア -->
+        <StackPanel Orientation="Vertical" 
+                Margin="20, 100, 0, 0"  
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                DataContext="{Binding CurrentLocation}">
+
+            <StackPanel Orientation="Horizontal">
+                <Viewbox Width="30" Height="30" Margin="0,0,5,0">
+                    <TextBlock Text="{Binding CurrentIcon}" 
+                           Foreground="{Binding CurrentIconColor}" FontWeight="Bold"/>
+                </Viewbox>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding LocationName}" 
+                           Foreground="White" 
+                           FontSize="16" 
+                           FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="気温: " 
+                               Foreground="LightGray" 
+                               FontSize="12"/>
+                        <TextBlock Text="{Binding CurrentTemp}" 
+                               Foreground="White" 
+                               FontSize="14" 
+                               FontWeight="Bold"/>
+                        <TextBlock Text="℃" 
+                               Foreground="White" 
+                               FontSize="14" 
+                               FontWeight="Bold"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- 予報表示エリア (3日分) -->
+            <Border Background="#33000000" CornerRadius="5" Margin="0,15,0,0" Padding="5">
+                <StackPanel>
+                    <TextBlock Text="週間予報" Foreground="LightGray" FontSize="12" Margin="0,0,0,5"/>
+                    <ItemsControl ItemsSource="{Binding ForecastList}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,15,0" Width="40">
+                                    <TextBlock Text="{Binding DateLabel}" Foreground="White" FontSize="11" HorizontalAlignment="Center"/>
+                                    <Viewbox Height="20" Margin="0,2">
+                                        <TextBlock Text="{Binding Icon}" Foreground="{Binding IconColor}" FontWeight="Bold"/>
+                                    </Viewbox>
+                                    <TextBlock Text="{Binding Temp}" Foreground="White" FontSize="12" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </Window>
